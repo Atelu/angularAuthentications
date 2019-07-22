@@ -1,0 +1,41 @@
+table {
+  width: 100%;
+}
+.mat-form-field {
+  font-size: 14px;
+  width: 50%;
+  padding-left: 5%;
+
+}
+.example-container > * {
+  width: 100%;
+  /* margin-left: 10%; */
+}
+.my-card{
+  padding-left: 1%;
+}
+.my-button {
+  width: 30px;
+  height: 30px;
+  margin: 30px auto;
+  left: 16%;
+
+}
+
+.example-margin {
+  /* width: 20px; */
+  position: absolute;
+  top: 18%;
+  left: 18%;
+}
+.load{
+  color: black;
+  padding-left: 10%
+}
+.reload{
+  position: absolute;
+  top: 10%;
+  left: 11%;
+}
+
+
