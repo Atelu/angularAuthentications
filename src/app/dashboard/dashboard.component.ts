@@ -31,10 +31,16 @@ export class DashboardComponent implements OnInit {
     Validators.email
   ]);
 
-  Gender: string[];
+  gendergroup: string[];
+  agegroup: string[];
+  servicetypes: string[];
+  serviceplacetypes: string[];
   patientcategorytype: string[];
   patientstatus: string[];
-  serviceplacetype: string[];
+  agegroupcategory: string[];
+  clinics: string[];
+  facilitybranch: string[];
+  maintype: string[];
 
   constructor(private userService: UserService, private router: Router) { }
 
@@ -66,18 +72,23 @@ export class DashboardComponent implements OnInit {
 
   getFormOptions(): void {
     this.userService.getFormOptions().subscribe(data => {
-      this.patientcategorytype = data as string[];
-      this.patientstatus = data as string[];
-      this.patientstatus = data as string[];
-      console.log(data);
-
+      this.gendergroup = data[0].data.content;
+      this.agegroup = data[1].data.content;
+      this.servicetypes = data[2].data.content;
+      this.serviceplacetypes = data[3].data.content;
+      this.patientcategorytype = data[4].data.content;
+      this.clinics = data[5].data.content;
+      this.facilitybranch = data[6].data.content;
+      this.patientstatus = data[7].data.content;
+      this.maintype = data[8].data.content;
+      this.agegroupcategory = data[9].data.content;
     });
   }
 
   getUser(): void {
     this.userService.getUser().subscribe(
       users => {
-        console.log('resp', users.data.content);
+        // console.log('resp', users.data.content);
         // this.dataSource = new MatTableDataSource(users.data.content);
         // this.dataSource.paginator = this.paginator;
         this.tableData = users.data.content;

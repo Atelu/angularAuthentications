@@ -32,24 +32,30 @@ export class UserService {
     return this.http.get(configUrl + 'servicetypes');
   }
 
-  getServicePlaceType(): Observable<any> {
-    return this.http.get(configUrl + 'serviceplacetype');
+  getServicePlaceTypes(): Observable<any> {
+    return this.http.get(configUrl + 'serviceplacetypes');
   }
 
-  getPatientCategoryType(): Observable<any> {
-    return this.http.get(configUrl + 'patientcategorytype');
+  getPatientCategoryTypes(): Observable<any> {
+    return this.http.get(configUrl + 'patientcategorytypes');
   }
 
   getClinicsAll(): Observable<any> {
     return this.http.get(configUrl + 'clinics/all');
   }
 
-  getFacilityBranch(): Observable<any> {
+  getFacilityBranches(): Observable<any> {
     return this.http.get(configUrl + 'facility/branch');
   }
 
   getPatientStatus(): Observable<any> {
     return this.http.get(configUrl + 'patient/status');
+  }
+  getMainType(): Observable<any> {
+    return this.http.get(configUrl + 'serviceplacetypes');
+  }
+  getAgeGroupCategory(): Observable<any> {
+    return this.http.get(configUrl + 'agegroup');
   }
 
   getFormOptions(): Observable<any> {
@@ -57,11 +63,13 @@ export class UserService {
       this.getGenderGroup(),
       this.getAgeGroup(),
       this.getServiceTypes(),
-      //  this.getServicePlaceType(),
-      // this.getPatientCategoryType(),
+      this.getServicePlaceTypes(),
+      this.getPatientCategoryTypes(),
       this.getClinicsAll(),
-      this.getFacilityBranch(),
-      this.getPatientStatus()
+      this.getFacilityBranches(),
+      this.getPatientStatus(),
+      this.getMainType(),
+      this.getAgeGroupCategory(),
     ]);
   }
 

@@ -116,7 +116,7 @@
             <div class="example-container">
               <mat-form-field>
                 <mat-select placeholder="Gender" >
-                  <mat-option *ngFor="let g of Gender" [value]="g">{{g}}</mat-option>
+                  <mat-option *ngFor="let g of gendergroup" [value]="g.id">{{g.name}}</mat-option>
                 </mat-select>
               </mat-form-field>
             </div>
@@ -125,7 +125,7 @@
             <div class="example-container">
               <mat-form-field>
                 <mat-select placeholder="Patient Categories">
-                  <mat-option *ngFor="let PCT of patientcategorytype" [value]="PCT"> {{PCT}}</mat-option>
+                  <mat-option *ngFor="let pct of patientcategorytype" [value]="pct.id"> {{pct.name}}</mat-option>
                 </mat-select>
               </mat-form-field>
             </div>
@@ -137,7 +137,7 @@
             <div class="example-container">
               <mat-form-field>
                 <mat-select placeholder="Patient Status">
-                  <mat-option *ngFor="let PS of patientstatus" [value]="PS">{{PS}} </mat-option>
+                  <mat-option *ngFor="let ps of patientstatus" [value]="ps.id">{{ps.name}} </mat-option>
                 </mat-select>
               </mat-form-field>
             </div>
@@ -146,7 +146,7 @@
             <div class="example-container">
               <mat-form-field>
                 <mat-select placeholder="Service Place Type(s)">
-                  <mat-option *ngFor="let SPT of serviceplacetype" [value]="SPT">{{SPT}}</mat-option>
+                  <mat-option *ngFor="let spt of serviceplacetypes" [value]="spt.id">{{spt.name}}</mat-option>
                 </mat-select>
               </mat-form-field>
             </div>
@@ -158,8 +158,7 @@
             <div class="example-container">
               <mat-form-field>
                 <mat-select placeholder="Age Group Category">
-                  <mat-option value="option">Adult</mat-option>
-                  <mat-option value="option">Children</mat-option>
+                  <mat-option *ngFor="let agc of agegroupcategory" [value]="agc.id">{{agc.name}}</mat-option>
                 </mat-select>
               </mat-form-field>
             </div>
@@ -168,7 +167,7 @@
             <div class="example-container">
               <mat-form-field>
                 <mat-select placeholder="Clinic(s)">
-                  <mat-option value="option">Option</mat-option>
+                  <mat-option *ngFor="let c of clinics" [value]="c.id">{{c.name}} </mat-option>
                 </mat-select>
               </mat-form-field>
             </div>
@@ -180,7 +179,7 @@
             <div class="example-container">
               <mat-form-field>
                 <mat-select placeholder="Age Group">
-                  <mat-option value="option">Option</mat-option>
+                  <mat-option *ngFor="let ag of agegroup" [value]="ag.id">{{ag.name}} </mat-option>
                 </mat-select>
               </mat-form-field>
             </div>
@@ -189,7 +188,7 @@
             <div class="example-container">
               <mat-form-field>
                 <mat-select placeholder="Branch(es)">
-                  <mat-option value="option">Option</mat-option>
+                  <mat-option *ngFor="let fb of facilitybranch" [value]="fb.id">{{fb.name}} </mat-option>
                 </mat-select>
               </mat-form-field>
             </div>
@@ -201,7 +200,7 @@
             <div class="example-container">
               <mat-form-field>
                 <mat-select placeholder="Main Type">
-                  <mat-option value="option">Option</mat-option>
+                  <mat-option *ngFor="let mt of maintype" [value]="mt.id">{{mt.name}} </mat-option>
                 </mat-select>
               </mat-form-field>
             </div>
@@ -221,7 +220,7 @@
             <div class="example-container">
               <mat-form-field>
                 <mat-select placeholder="Service Type(s)">
-                  <mat-option value="option">Option</mat-option>
+                  <mat-option *ngFor="let st of servicetypes" [value]="st.id">{{st.name}} </mat-option>
                 </mat-select>
               </mat-form-field>
             </div>

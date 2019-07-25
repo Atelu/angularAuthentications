@@ -44,7 +44,7 @@ export class LoginComponent implements OnInit {
     this.alertService.alert$
       .pipe()
       .subscribe(
-        alert => console.log('alert', alert)
+        // alert => console.log('alert', alert)
       );
   }
 
