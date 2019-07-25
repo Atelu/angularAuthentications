@@ -2,7 +2,7 @@ import { User } from './../models/User';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { baseUrl } from '../models/sharedModel';
-import { map } from 'rxjs/operators';
+import { map, delay } from 'rxjs/operators';
 import { BehaviorSubject, Observable } from 'rxjs';
 
 
@@ -25,6 +25,7 @@ export class AuthenticationServiceService {
   login(username: string, password: string): Observable<any> {
     return this.http.post<any>(`${baseUrl}authentication/login`, { username, password })
       .pipe(
+        delay(2000),
         map(user => {
           localStorage.setItem('token', user.data[0].accessToken.token);
           this.currentUserSubject.next(user);

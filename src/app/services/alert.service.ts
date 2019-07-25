@@ -6,6 +6,40 @@ import { Observable, Subject } from 'rxjs';
   providedIn: 'root'
 })
 export class AlertService {
+  private alertSubj = new Subject<any>();
+  public alert$ = this.alertSubj.asObservable();
+  private keepAfterRouteChange = false;
 
-  constructor() {}
+  constructor(private router: Router) {
+    // clear alert messages on route change unless 'keepAfterRouteChange' flag is true
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationStart) {
+        if (this.keepAfterRouteChange) {
+          // only keep for a single route change
+          this.keepAfterRouteChange = false;
+        } else {
+          // clear alert message
+          this.clear();
+        }
+      }
+    });
+  }
+  getAlert(): Observable<any> {
+    return this.alertSubj.asObservable();
+}
+
+success(message: string, keepAfterRouteChange = false) {
+    this.keepAfterRouteChange = keepAfterRouteChange;
+    this.alertSubj.next({ type: 'success', text: message });
+}
+
+error(message: string, keepAfterRouteChange = false) {
+    this.keepAfterRouteChange = keepAfterRouteChange;
+    this.alertSubj.next({ type: 'error', text: message });
+}
+
+clear() {
+    // clear by calling subject.next() without parameters
+    this.alertSubj.next();
+}
 }

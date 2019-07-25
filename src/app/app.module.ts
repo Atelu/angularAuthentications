@@ -20,6 +20,7 @@ import { from } from 'rxjs';
 import { RegistrationComponent } from './registration/registration.component';
 import { LoginModule } from './login/login.module';
 import { ButtonFailedComponent } from './components/button-failed/button-failed.component';
+import { AlertComponent } from './alert/alert.component';
 
 
 
@@ -30,6 +31,7 @@ import { ButtonFailedComponent } from './components/button-failed/button-failed.
     DashboardComponent,
     RegistrationComponent,
     ButtonFailedComponent,
+    AlertComponent,
   ],
   imports: [
     BrowserModule,

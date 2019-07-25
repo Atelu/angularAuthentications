@@ -31,6 +31,11 @@ export class DashboardComponent implements OnInit {
     Validators.email
   ]);
 
+  Gender: string[];
+  patientcategorytype: string[];
+  patientstatus: string[];
+  serviceplacetype: string[];
+
   constructor(private userService: UserService, private router: Router) { }
 
   // dataSource = new UserDataSource(this.userService);
@@ -61,7 +66,11 @@ export class DashboardComponent implements OnInit {
 
   getFormOptions(): void {
     this.userService.getFormOptions().subscribe(data => {
+      this.patientcategorytype = data as string[];
+      this.patientstatus = data as string[];
+      this.patientstatus = data as string[];
       console.log(data);
+
     });
   }
 

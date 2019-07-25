@@ -97,7 +97,7 @@
           <div fxFlex="30%">
             <div class="example-container">
               <mat-form-field>
-                <input matInput placeholder="Name" />
+                <input matInput placeholder="Name"  />
               </mat-form-field>
             </div>
           </div>
@@ -115,9 +115,8 @@
           <div fxFlex="30%">
             <div class="example-container">
               <mat-form-field>
-                <mat-select placeholder="Gender">
-                  <mat-option value="option">Male</mat-option>
-                  <mat-option value="option">Female</mat-option>
+                <mat-select placeholder="Gender" >
+                  <mat-option *ngFor="let g of Gender" [value]="g">{{g}}</mat-option>
                 </mat-select>
               </mat-form-field>
             </div>
@@ -126,7 +125,7 @@
             <div class="example-container">
               <mat-form-field>
                 <mat-select placeholder="Patient Categories">
-                  <mat-option value="option">Option</mat-option>
+                  <mat-option *ngFor="let PCT of patientcategorytype" [value]="PCT"> {{PCT}}</mat-option>
                 </mat-select>
               </mat-form-field>
             </div>
@@ -138,7 +137,7 @@
             <div class="example-container">
               <mat-form-field>
                 <mat-select placeholder="Patient Status">
-                  <mat-option value="option">Option</mat-option>
+                  <mat-option *ngFor="let PS of patientstatus" [value]="PS">{{PS}} </mat-option>
                 </mat-select>
               </mat-form-field>
             </div>
@@ -147,7 +146,7 @@
             <div class="example-container">
               <mat-form-field>
                 <mat-select placeholder="Service Place Type(s)">
-                  <mat-option value="option">Option</mat-option>
+                  <mat-option *ngFor="let SPT of serviceplacetype" [value]="SPT">{{SPT}}</mat-option>
                 </mat-select>
               </mat-form-field>
             </div>
