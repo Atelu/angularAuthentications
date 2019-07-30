@@ -14,6 +14,7 @@ import {
 import { DataSource } from '@angular/cdk/collections';
 import { subscribeOn, filter } from 'rxjs/operators';
 
+
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -25,11 +26,10 @@ export class DashboardComponent implements OnInit {
   isloading = true;
   users: Serviceplace[];
   tableform: FormGroup;
+  selectedIndex = 0;
 
-  nameFormControl = new FormControl('', [
-    Validators.required,
-    Validators.email
-  ]);
+
+  nameFormControl = new FormControl('', [Validators.required, Validators.email]);
 
   gendergroup: string[];
   agegroup: string[];
@@ -42,7 +42,6 @@ export class DashboardComponent implements OnInit {
   facilitybranch: string[];
   maintype: string[];
 
-  constructor(private userService: UserService, private router: Router) { }
 
   // dataSource = new UserDataSource(this.userService);
   dataSource = new MatTableDataSource();
@@ -53,7 +52,8 @@ export class DashboardComponent implements OnInit {
     'Patient Status',
     'Main Type',
     'Head name',
-    'isActive'
+    'isActive',
+    'Actions'
   ];
   selection = new SelectionModel(true, []);
 
@@ -61,6 +61,11 @@ export class DashboardComponent implements OnInit {
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
+
+  serviceForm: FormGroup;
+
+  constructor(private userService: UserService, private router: Router, private fb: FormBuilder) { }
+
   applyFilter(filterValue) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
@@ -68,6 +73,41 @@ export class DashboardComponent implements OnInit {
   ngOnInit() {
     this.getUser();
     this.getFormOptions();
+
+    this.serviceForm = this.fb.group({
+      name: ['', Validators.required],
+      code: ['', Validators.required],
+      gendergroup: '',
+      servicePlacePatientCategories: '',
+      patientstatus: '',
+      ServicePlaceServicePlaceType: '',
+      servicePlaceAgegroups : '',
+      UserServicePlaces: '',
+      ServicePlaceBranches: '',
+      maintypes: '',
+      headname: ['', Validators.required],
+      ServicePlaceServiceTypes: '',
+
+
+    });
+  }
+
+    submitForm(): void {
+      return;
+    }
+  nextStep(row) {
+    if (this.selectedIndex === 0) {
+      this.selectedIndex = this.selectedIndex + 1;
+    }
+    console.log(this.selectedIndex);
+    console.log('Next Step', row);
+  }
+
+  previousStep() {
+    if (this.selectedIndex !== 0) {
+      this.selectedIndex = this.selectedIndex - 1;
+    }
+    console.log(this.selectedIndex);
   }
 
   getFormOptions(): void {

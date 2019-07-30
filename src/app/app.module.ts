@@ -14,8 +14,8 @@ import {
   MatDialogModule, MatToolbarModule, MatProgressBarModule, MatProgressSpinnerModule,
   MatPaginatorModule, MatSortModule, MatIconModule, MatTabsModule,
   MatSnackBarModule, MatRadioModule, MatDatepickerModule,
-  MatNativeDateModule, MatSelectModule, MatTableModule } from '@angular/material';
-import { FormsModule } from '@angular/forms';
+  MatNativeDateModule, MatSelectModule, MatTableModule, MatMenuModule } from '@angular/material';
+import { FormsModule,  ReactiveFormsModule } from '@angular/forms';
 import { from } from 'rxjs';
 import { RegistrationComponent } from './registration/registration.component';
 import { LoginModule } from './login/login.module';
@@ -38,8 +38,8 @@ import { AlertComponent } from './alert/alert.component';
     AppRoutingModule,
     BrowserAnimationsModule, MatFormFieldModule, MatInputModule, MatCardModule, MatButtonModule, MatCheckboxModule,
     MatDialogModule, MatToolbarModule, MatProgressBarModule, MatProgressSpinnerModule,
-    MatPaginatorModule, MatSortModule, MatIconModule, MatTabsModule,
-    MatSnackBarModule, MatRadioModule, MatDatepickerModule,
+    MatPaginatorModule, MatSortModule, MatIconModule, MatTabsModule, MatMenuModule,
+    MatSnackBarModule, MatRadioModule, MatDatepickerModule,  ReactiveFormsModule,
     MatNativeDateModule, MatSelectModule, FormsModule, MatTableModule,  HttpClientModule, FlexLayoutModule, LoginModule,
   ],
   providers: [
