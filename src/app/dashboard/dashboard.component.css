@@ -37,3 +37,10 @@ table {
   top: 10%;
   left: 11%;
 }
+.md-fab {
+  line-height: 3.6rem;
+  min-width: 0;
+  width: 3.6rem;
+  height: 3.6rem;
+  border-radius: 50%;
+}

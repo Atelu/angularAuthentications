@@ -4,7 +4,7 @@
   </mat-card-header>
   <mat-card-content>
     <mat-tab-group [selectedIndex]="selectedIndex">
-      <mat-tab *ngFor="let number of [0];let i=index; " label="Service Place List" class="my-tab">
+      <mat-tab label="Service Place List" class="my-tab">
         <div class="container" style="width: 100%" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10%">
           <div fxFlex="30%">
             <div class="example-container">
@@ -98,7 +98,9 @@
               {{ user.actions }}
               <button mat-button [matMenuTriggerFor]="menu">Actions
                 <mat-menu #menu="matMenu">
-                  <button (click)="nextStep(user)" mat-menu-item>Edit/Save</button>
+                  <button mat-menu-item (click)="nextStep(user)">
+                    Edit/New
+                  </button>
                 </mat-menu>
                 <mat-icon>keyboard_arrow_down</mat-icon>
               </button>
@@ -106,143 +108,147 @@
           </ng-container>
         </table>
       </mat-tab>
-      <mat-tab  *ngFor="let number of [0];let i=index; "  label="New / Edit Service Places" class="my-tab">
-        <div class="container" style="width: 100%" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="50px">
-          <div fxFlex="30%">
-            <div class="example-container">
-              <mat-form-field>
-                <input matInput placeholder="Name" />
-              </mat-form-field>
+      <mat-tab   label="New / Edit Service Places" class="my-tab">
+        <form [formGroup]="serviceForm" (ngSubmit)="submitForm()">
+          <div class="container" style="width: 100%" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="50px">
+            <div fxFlex="30%">
+              <div class="example-container">
+                <mat-form-field>
+                  <input matInput placeholder="Name" formControlName="name" class="form-control" />
+                </mat-form-field>
+              </div>
+            </div>
+
+            <div fxFlex="30%">
+              <div class="example-container">
+                <mat-form-field>
+                  <input matInput placeholder="code" formControlName="code" class="form-control" />
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+          <div class="container" style="width: 100%" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="50px">
+            <div fxFlex="30%">
+              <div class="example-container">
+                <mat-form-field>
+                  <mat-select placeholder="Gender" formControlName="gendergroup" class="form-control">
+                    <mat-option *ngFor="let g of gendergroup" [value]="g.id">{{g.name}}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </div>
+            <div fxFlex="30%">
+              <div class="example-container">
+                <mat-form-field>
+                  <mat-select placeholder="Patient Categories" formControlName="servicePlacePatientCategories">
+                    <mat-option *ngFor="let pct of patientcategorytype" [value]="pct.id"> {{pct.name}}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
             </div>
           </div>
 
-          <div fxFlex="30%">
-            <div class="example-container">
-              <mat-form-field>
-                <input matInput placeholder="code" />
-              </mat-form-field>
+          <div class="container" style="width: 100%" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="50px">
+            <div fxFlex="30%">
+              <div class="example-container">
+                <mat-form-field>
+                  <mat-select placeholder="Patient Status" formControlName="patientstatus" class="form-control">
+                    <mat-option *ngFor="let ps of patientstatus" [value]="ps.id">{{ps.name}} </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
             </div>
-          </div>
-        </div>
-
-        <div class="container" style="width: 100%" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="50px">
-          <div fxFlex="30%">
-            <div class="example-container">
-              <mat-form-field>
-                <mat-select placeholder="Gender">
-                  <mat-option *ngFor="let g of gendergroup" [value]="g.id">{{g.name}}</mat-option>
-                </mat-select>
-              </mat-form-field>
-            </div>
-          </div>
-          <div fxFlex="30%">
-            <div class="example-container">
-              <mat-form-field>
-                <mat-select placeholder="Patient Categories">
-                  <mat-option *ngFor="let pct of patientcategorytype" [value]="pct.id"> {{pct.name}}</mat-option>
-                </mat-select>
-              </mat-form-field>
-            </div>
-          </div>
-        </div>
-
-        <div class="container" style="width: 100%" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="50px">
-          <div fxFlex="30%">
-            <div class="example-container">
-              <mat-form-field>
-                <mat-select placeholder="Patient Status">
-                  <mat-option *ngFor="let ps of patientstatus" [value]="ps.id">{{ps.name}} </mat-option>
-                </mat-select>
-              </mat-form-field>
-            </div>
-          </div>
-          <div fxFlex="30%">
-            <div class="example-container">
-              <mat-form-field>
-                <mat-select placeholder="Service Place Type(s)">
-                  <mat-option *ngFor="let spt of serviceplacetypes" [value]="spt.id">{{spt.name}}</mat-option>
-                </mat-select>
-              </mat-form-field>
-            </div>
-          </div>
-        </div>
-
-        <div class="container" style="width: 100%" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="50px">
-          <div fxFlex="30%">
-            <div class="example-container">
-              <mat-form-field>
-                <mat-select placeholder="Age Group Category">
-                  <mat-option *ngFor="let agc of agegroupcategory" [value]="agc.id">{{agc.name}}</mat-option>
-                </mat-select>
-              </mat-form-field>
-            </div>
-          </div>
-          <div fxFlex="30%">
-            <div class="example-container">
-              <mat-form-field>
-                <mat-select placeholder="Clinic(s)">
-                  <mat-option *ngFor="let c of clinics" [value]="c.id">{{c.name}} </mat-option>
-                </mat-select>
-              </mat-form-field>
-            </div>
-          </div>
-        </div>
-
-        <div class="container" style="width: 100%" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="50px">
-          <div fxFlex="30%">
-            <div class="example-container">
-              <mat-form-field>
-                <mat-select placeholder="Age Group">
-                  <mat-option *ngFor="let ag of agegroup" [value]="ag.id">{{ag.name}} </mat-option>
-                </mat-select>
-              </mat-form-field>
-            </div>
-          </div>
-          <div fxFlex="30%">
-            <div class="example-container">
-              <mat-form-field>
-                <mat-select placeholder="Branch(es)">
-                  <mat-option *ngFor="let fb of facilitybranch" [value]="fb.id">{{fb.name}} </mat-option>
-                </mat-select>
-              </mat-form-field>
-            </div>
-          </div>
-        </div>
-
-        <div class="container" style="width: 100%" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="50px">
-          <div fxFlex="30%">
-            <div class="example-container">
-              <mat-form-field>
-                <mat-select placeholder="Main Type">
-                  <mat-option *ngFor="let mt of maintype" [value]="mt.id">{{mt.name}} </mat-option>
-                </mat-select>
-              </mat-form-field>
+            <div fxFlex="30%">
+              <div class="example-container">
+                <mat-form-field>
+                  <mat-select placeholder="Service Place Type(s)" formControlName="servicePlaceServicePlaceTypes">
+                    <mat-option *ngFor="let spt of serviceplacetypes" [value]="spt.id">{{spt.name}}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
             </div>
           </div>
 
-          <div fxFlex="30%">
-            <div class="example-container">
-              <mat-form-field>
-                <input matInput placeholder="Head Name" />
-              </mat-form-field>
+          <div class="container" style="width: 100%" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="50px">
+            <div fxFlex="30%">
+              <div class="example-container">
+                <mat-form-field>
+                  <mat-select placeholder="Age Group Category" formControlName="servicePlaceAgegroups">
+                    <mat-option *ngFor="let agc of agegroupcategory" [value]="agc.id">{{agc.name}}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </div>
+            <div fxFlex="30%">
+              <div class="example-container">
+                <mat-form-field>
+                  <mat-select placeholder="Clinic(s)" formControlName="userServicePlaces" class="form-control">
+                    <mat-option *ngFor="let c of clinics" [value]="c.id">{{c.name}} </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
             </div>
           </div>
-        </div>
 
-        <div class="container" style="width: 100%" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="50px">
-          <div fxFlex="30%">
-            <div class="example-container">
-              <mat-form-field>
-                <mat-select placeholder="Service Type(s)">
-                  <mat-option *ngFor="let st of servicetypes" [value]="st.id">{{st.name}} </mat-option>
-                </mat-select>
-              </mat-form-field>
+          <div class="container" style="width: 100%" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="50px">
+            <div fxFlex="30%">
+              <div class="example-container">
+                <mat-form-field>
+                  <mat-select placeholder="Age Group" formControlName="servicePlaceAgegroups" class="form-control">
+                    <mat-option *ngFor="let ag of agegroup" [value]="ag.id">{{ag.name}} </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </div>
+            <div fxFlex="30%">
+              <div class="example-container">
+                <mat-form-field>
+                  <mat-select placeholder="Branch(es)" formControlName="servicePlaceBranches" class="form-control">
+                    <mat-option *ngFor="let fb of facilitybranch" [value]="fb.id">{{fb.name}} </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
             </div>
           </div>
-          <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="center center">
-            <button mat-mini-fab color="primary">Save</button>
+
+          <div class="container" style="width: 100%" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="50px">
+            <div fxFlex="30%">
+              <div class="example-container">
+                <mat-form-field>
+                  <mat-select placeholder="Main Type" formControlName="maintypes" class="form-control">
+                    <mat-option *ngFor="let mt of maintype" [value]="mt.id">{{mt.name}} </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </div>
+
+            <div fxFlex="30%">
+              <div class="example-container">
+                <mat-form-field>
+                  <input matInput placeholder="Head Name" formControlName="headname" class="form-control" />
+                </mat-form-field>
+              </div>
+            </div>
           </div>
-        </div>
+
+          <div class="container" style="width: 100%" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="50px">
+            <div fxFlex="30%">
+              <div class="example-container">
+                <mat-form-field>
+                  <mat-select placeholder="Service Type(s)" formControlName="ServicePlaceServiceTypes"
+                    class="form-control">
+                    <mat-option *ngFor="let st of servicetypes" [value]="st.id">{{st.name}} </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </div>
+            <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="center center">
+              <button mat-mini-fab color="primary" class="md-fab">Save</button>
+              <button class="md-fab" mat-mini-fab color="primary" (click)="updateUser()">Update</button>
+
+            </div>
+          </div>
+        </form>
       </mat-tab>
     </mat-tab-group>
   </mat-card-content>

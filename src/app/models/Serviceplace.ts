@@ -4,7 +4,6 @@ export interface Serviceplace {
   gender: string;
   status: string;
   maintype: {
-    name: string;
-
+  name: string;
   };
 }

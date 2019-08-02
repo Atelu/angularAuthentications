@@ -1,19 +1,14 @@
-import { Router, NavigationEnd, RouterEvent } from '@angular/router';
-// import { UserDataSource } from './../user-data-source';
+import { User } from './../models/User';
+import { ApiService } from './../services/api.service';
+import { Router } from '@angular/router';
 import { Serviceplace } from './../models/Serviceplace';
 import { UserService } from './../services/user.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 import { SelectionModel } from '@angular/cdk/collections';
-import {
-  FormControl,
-  Validators,
-  FormGroup,
-  FormBuilder
-} from '@angular/forms';
-import { DataSource } from '@angular/cdk/collections';
-import { subscribeOn, filter } from 'rxjs/operators';
-
+import { FormControl, Validators, FormGroup, FormBuilder } from '@angular/forms';
+import * as _ from 'lodash';
+import { first } from 'rxjs/operators';
 
 @Component({
   selector: 'app-dashboard',
@@ -26,24 +21,27 @@ export class DashboardComponent implements OnInit {
   isloading = true;
   users: Serviceplace[];
   tableform: FormGroup;
+  serviceForm: FormGroup;
   selectedIndex = 0;
+  selected = false;
+  tableData = null;
+  editPlaceId: any = null;
+  editPlaceData: any = {};
 
-
+  selection = new SelectionModel(true, []);
   nameFormControl = new FormControl('', [Validators.required, Validators.email]);
 
-  gendergroup: string[];
+  gendergroup: Array<any> = [];
   agegroup: string[];
   servicetypes: string[];
   serviceplacetypes: string[];
-  patientcategorytype: string[];
+  patientcategorytype: Array<any> = [];
   patientstatus: string[];
   agegroupcategory: string[];
   clinics: string[];
   facilitybranch: string[];
   maintype: string[];
 
-
-  // dataSource = new UserDataSource(this.userService);
   dataSource = new MatTableDataSource();
   displayedColumns: string[] = [
     'name',
@@ -55,16 +53,12 @@ export class DashboardComponent implements OnInit {
     'isActive',
     'Actions'
   ];
-  selection = new SelectionModel(true, []);
 
-  tableData = null;
-
-  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
-  serviceForm: FormGroup;
-
-  constructor(private userService: UserService, private router: Router, private fb: FormBuilder) { }
+  constructor(private userService: UserService, private router: Router, private fb: FormBuilder,
+              private apiService: ApiService) { }
 
   applyFilter(filterValue) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
@@ -75,38 +69,33 @@ export class DashboardComponent implements OnInit {
     this.getFormOptions();
 
     this.serviceForm = this.fb.group({
-      name: ['', Validators.required],
-      code: ['', Validators.required],
+      name: '',
+      code: '',
       gendergroup: '',
       servicePlacePatientCategories: '',
       patientstatus: '',
-      ServicePlaceServicePlaceType: '',
-      servicePlaceAgegroups : '',
-      UserServicePlaces: '',
-      ServicePlaceBranches: '',
+      servicePlaceServicePlaceTypes: '',
+      servicePlaceAgegroups: '',
+      userServicePlaces: '',
+      servicePlaceBranches: '',
       maintypes: '',
-      headname: ['', Validators.required],
+      headname: '',
       ServicePlaceServiceTypes: '',
 
 
     });
   }
 
-    submitForm(): void {
-      return;
-    }
+
   nextStep(row) {
-    if (this.selectedIndex === 0) {
-      this.selectedIndex = this.selectedIndex + 1;
-    }
-    console.log(this.selectedIndex);
-    console.log('Next Step', row);
+
+    this.selectedIndex = this.selectedIndex + 1;
+    this.fillForm(row);
   }
 
   previousStep() {
-    if (this.selectedIndex !== 0) {
-      this.selectedIndex = this.selectedIndex - 1;
-    }
+
+    this.selectedIndex = this.selectedIndex - 1;
     console.log(this.selectedIndex);
   }
 
@@ -149,5 +138,49 @@ export class DashboardComponent implements OnInit {
   initTable(): void {
     this.dataSource = new MatTableDataSource(this.tableData);
     this.dataSource.paginator = this.paginator;
+  }
+
+  fillForm(data: any): void {
+    console.log('fill form', data);
+    this.serviceForm.reset();
+    this.serviceForm.patchValue({
+      name: data.name,
+      code: data.code,
+      gendergroup: data.gendergroup.id,
+      servicePlacePatientCategories: data.id,
+      patientstatus: data.patientstatus.id,
+      servicePlaceServicePlaceTypes: data.id,
+      servicePlaceAgegroups: data.id,
+      userServicePlaces: data.id,
+      servicePlaceBranches: data.id,
+      maintypes: data.maintypes.id,
+      headname: data.headname,
+      ServicePlaceServiceTypes: data.id,
+
+    });
+    this.editPlaceData = data;
+    this.editPlaceId = data.id;
+    // const pIds = [];
+    // data.servicePlacePatientCategories.foreach(x => {
+    //   pIds.push(x);
+    // })
+    // servicePlacePatientCategories.map(x => x.patientcategoryid),
+  }
+
+  // stop here if form is invalid
+  submitForm(): void {
+    if (this.serviceForm.invalid) {
+      return;
+    }
+  }
+  updateUser(): void {
+    const originalData = this.editPlaceData;
+    // originalData.id =
+    this.apiService.updateUser(originalData)
+    .subscribe(
+      data => {
+        console.log( 'updating info', data);
+      }
+    );
   }
 }

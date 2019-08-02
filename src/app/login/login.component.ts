@@ -2,21 +2,9 @@ import { AlertService } from './../services/alert.service';
 import { AuthenticationServiceService } from './../services/authentication.service';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import {
-  Validators,
-  FormGroup,
-  FormBuilder,
-  AbstractControl,
-  FormControl,
-  FormControlName
-} from '@angular/forms';
-import { UserService } from '../services/user.service';
-import { interval, of, fromEvent } from 'rxjs';
+import { Validators, FormGroup, FormBuilder } from '@angular/forms';
 import { first, take, map, filter, switchMap, exhaustMap, concatMap, mergeMap, takeWhile, delay } from 'rxjs/operators';
-import { invalid } from '@angular/compiler/src/render3/view/util';
-import { error } from '@angular/compiler/src/util';
 import { HttpErrorResponse } from '@angular/common/http';
-
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -30,7 +18,6 @@ export class LoginComponent implements OnInit {
   message: any;
   invalidPassword =  false;
   invalidUsername = false;
-
   private isAlive = false;
 
   constructor(private authenticationService: AuthenticationServiceService,
@@ -40,14 +27,12 @@ export class LoginComponent implements OnInit {
     if (this.authenticationService.currentUserValue) {
       this.router.navigate(['/']);
     }
-
     this.alertService.alert$
       .pipe()
       .subscribe(
         // alert => console.log('alert', alert)
       );
   }
-
   ngOnInit() {
     this.loginform = this.fb.group({
       username: ['', Validators.compose([Validators.required, Validators.maxLength(8)])],

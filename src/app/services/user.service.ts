@@ -1,9 +1,6 @@
-import { Serviceplace } from './../models/Serviceplace';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, forkJoin } from 'rxjs';
-import { catchError, map, tap } from 'rxjs/operators';
-import { DataSource } from '@angular/cdk/table';
 import { configUrl } from '../models/sharedModel';
 import { Router } from '@angular/router';
 
