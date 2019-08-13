@@ -131,7 +131,7 @@
             <div fxFlex="30%">
               <div class="example-container">
                 <mat-form-field>
-                  <mat-select placeholder="Gender" formControlName="gendergroup" class="form-control">
+                  <mat-select placeholder="Gender" formControlName="gendergroupid" class="form-control">
                     <mat-option *ngFor="let g of gendergroup" [value]="g.id">{{g.name}}</mat-option>
                   </mat-select>
                 </mat-form-field>
@@ -140,7 +140,7 @@
             <div fxFlex="30%">
               <div class="example-container">
                 <mat-form-field>
-                  <mat-select placeholder="Patient Categories" formControlName="servicePlacePatientCategories">
+                  <mat-select placeholder="Patient Categories" formControlName="servicePlacePatientCategories" multiple>
                     <mat-option *ngFor="let pct of patientcategorytype" [value]="pct.id"> {{pct.name}}</mat-option>
                   </mat-select>
                 </mat-form-field>
@@ -152,7 +152,7 @@
             <div fxFlex="30%">
               <div class="example-container">
                 <mat-form-field>
-                  <mat-select placeholder="Patient Status" formControlName="patientstatus" class="form-control">
+                  <mat-select placeholder="Patient Status" formControlName="patientstatusid" class="form-control">
                     <mat-option *ngFor="let ps of patientstatus" [value]="ps.id">{{ps.name}} </mat-option>
                   </mat-select>
                 </mat-form-field>
@@ -161,7 +161,7 @@
             <div fxFlex="30%">
               <div class="example-container">
                 <mat-form-field>
-                  <mat-select placeholder="Service Place Type(s)" formControlName="servicePlaceServicePlaceTypes">
+                  <mat-select placeholder="Service Place Type(s)" formControlName="servicePlaceServicePlaceTypes" multiple>
                     <mat-option *ngFor="let spt of serviceplacetypes" [value]="spt.id">{{spt.name}}</mat-option>
                   </mat-select>
                 </mat-form-field>
@@ -182,7 +182,7 @@
             <div fxFlex="30%">
               <div class="example-container">
                 <mat-form-field>
-                  <mat-select placeholder="Clinic(s)" formControlName="userServicePlaces" class="form-control">
+                  <mat-select placeholder="Clinic(s)" formControlName="clinicserviceplaces" class="form-control" multiple>
                     <mat-option *ngFor="let c of clinics" [value]="c.id">{{c.name}} </mat-option>
                   </mat-select>
                 </mat-form-field>
@@ -194,7 +194,7 @@
             <div fxFlex="30%">
               <div class="example-container">
                 <mat-form-field>
-                  <mat-select placeholder="Age Group" formControlName="servicePlaceAgegroups" class="form-control">
+                  <mat-select placeholder="Age Group" formControlName="servicePlaceAgegroups" class="form-control" multiple>
                     <mat-option *ngFor="let ag of agegroup" [value]="ag.id">{{ag.name}} </mat-option>
                   </mat-select>
                 </mat-form-field>
@@ -203,7 +203,7 @@
             <div fxFlex="30%">
               <div class="example-container">
                 <mat-form-field>
-                  <mat-select placeholder="Branch(es)" formControlName="servicePlaceBranches" class="form-control">
+                  <mat-select placeholder="Branch(es)" formControlName="servicePlaceBranches" class="form-control" multiple>
                     <mat-option *ngFor="let fb of facilitybranch" [value]="fb.id">{{fb.name}} </mat-option>
                   </mat-select>
                 </mat-form-field>
@@ -215,7 +215,7 @@
             <div fxFlex="30%">
               <div class="example-container">
                 <mat-form-field>
-                  <mat-select placeholder="Main Type" formControlName="maintypes" class="form-control">
+                  <mat-select placeholder="Main Type" formControlName="maintypeid" class="form-control">
                     <mat-option *ngFor="let mt of maintype" [value]="mt.id">{{mt.name}} </mat-option>
                   </mat-select>
                 </mat-form-field>
@@ -236,15 +236,16 @@
               <div class="example-container">
                 <mat-form-field>
                   <mat-select placeholder="Service Type(s)" formControlName="ServicePlaceServiceTypes"
-                    class="form-control">
+                    class="form-control" multiple>
                     <mat-option *ngFor="let st of servicetypes" [value]="st.id">{{st.name}} </mat-option>
                   </mat-select>
                 </mat-form-field>
               </div>
             </div>
             <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="center center">
-              <button mat-mini-fab color="primary" class="md-fab">Save</button>
-              <button class="md-fab" mat-mini-fab color="primary" (click)="updateUser()">Update</button>
+              <button mat-mini-fab color="primary" (click)="save()" class="md-fab">Save</button>
+              <button class="md-fab" mat-mini-fab color="primary" (click)="update()">Update</button>
+              <!-- <button class="md-fab" mat-mini-fab color="primary" (click)="saveNewUser()">New User</button> -->
 
             </div>
           </div>
